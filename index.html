@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cherry Agency — The cherry on top of your brand</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --gray: #888888;
+    --light-gray: #e8e8e8;
+    --red: #ff2020;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 48px;
+    mix-blend-mode: difference;
+  }
+  .nav-logo {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-cta {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 1px solid var(--white);
+    padding-bottom: 2px;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.5; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-counter {
+    position: absolute;
+    top: 50%;
+    right: 48px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    text-align: right;
+  }
+  .hero-stat {
+    opacity: 0;
+    animation: fadeUp 0.8s forwards;
+  }
+  .hero-stat:nth-child(1) { animation-delay: 0.8s; }
+  .hero-stat:nth-child(2) { animation-delay: 1s; }
+  .hero-stat:nth-child(3) { animation-delay: 1.2s; }
+  .hero-stat-number {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-headline {
+    font-size: clamp(56px, 8vw, 120px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-headline em {
+    font-style: normal;
+    color: var(--gray);
+  }
+
+  .hero-sub {
+    margin-top: 40px;
+    font-size: 14px;
+    color: var(--gray);
+    letter-spacing: 0.05em;
+    max-width: 360px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-line {
+    position: absolute;
+    bottom: 0;
+    left: 48px;
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--white));
+    opacity: 0;
+    animation: fadeIn 1s 1.4s forwards;
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    border-top: 1px solid #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+    overflow: hidden;
+    padding: 16px 0;
+    background: var(--black);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 64px;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 64px;
+  }
+  .marquee-item::after {
+    content: '●';
+    font-size: 6px;
+    color: var(--red);
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* RESULTS */
+  .results {
+    padding: 120px 48px;
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 64px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--gray);
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #1a1a1a;
+  }
+  .result-card {
+    padding: 48px 40px;
+    border-right: 1px solid #1a1a1a;
+    border-bottom: 1px solid #1a1a1a;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .result-card:hover { background: #0a0a0a; }
+  .result-card:nth-child(3n) { border-right: none; }
+
+  .result-roas {
+    font-size: 64px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .result-roas span {
+    font-size: 24px;
+    color: var(--gray);
+    font-weight: 400;
+  }
+  .result-revenue {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .result-desc {
+    font-size: 12px;
+    color: var(--gray);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+  }
+  .result-tag {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid #2a2a2a;
+    padding: 4px 10px;
+    color: var(--gray);
+  }
+
+  /* SERVICES */
+  .services {
+    padding: 120px 48px;
+    border-top: 1px solid #1a1a1a;
+  }
+  .services-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 64px;
+  }
+  .services-headline {
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .services-headline em {
+    font-style: normal;
+    color: var(--gray);
+  }
+  .services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .service-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 0;
+    border-bottom: 1px solid #1a1a1a;
+    transition: padding-left 0.3s;
+  }
+  .service-item:hover { padding-left: 12px; }
+  .service-name {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .service-arrow {
+    font-size: 18px;
+    color: var(--gray);
+    transition: transform 0.3s, color 0.3s;
+  }
+  .service-item:hover .service-arrow {
+    transform: translateX(4px);
+    color: var(--white);
+  }
+
+  /* SOCIAL PROOF */
+  .proof {
+    padding: 120px 48px;
+    border-top: 1px solid #1a1a1a;
+    background: #050505;
+  }
+  .proof-numbers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 64px;
+    border: 1px solid #1a1a1a;
+  }
+  .proof-item {
+    padding: 48px 40px;
+    border-right: 1px solid #1a1a1a;
+    text-align: center;
+  }
+  .proof-item:last-child { border-right: none; }
+  .proof-number {
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .proof-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 160px 48px;
+    border-top: 1px solid #1a1a1a;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(100px, 20vw, 280px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    color: #0d0d0d;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+  .cta-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .cta-headline {
+    font-size: clamp(40px, 6vw, 88px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    margin-bottom: 48px;
+    position: relative;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: var(--white);
+    color: var(--black);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 20px 48px;
+    position: relative;
+    transition: all 0.3s;
+    overflow: hidden;
+  }
+  .cta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--red);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .cta-btn:hover::before { transform: translateX(0); }
+  .cta-btn span { position: relative; z-index: 1; }
+  .cta-btn:hover span { color: var(--white); }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 48px;
+    border-top: 1px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer-links {
+    display: flex;
+    gap: 32px;
+  }
+  .footer-link {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: var(--white); }
+  .footer-copy {
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 0.05em;
+  }
+
+  /* CASE STUDIES */
+  .cs-intro {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 80px;
+    color: var(--gray);
+  }
+  .cs-block {
+    border-top: 1px solid #1a1a1a;
+    padding: 64px 0;
+  }
+  .cs-header {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 48px;
+  }
+  .cs-number {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gray);
+    padding-top: 4px;
+  }
+  .cs-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .cs-subtitle {
+    font-size: 13px;
+    color: var(--gray);
+    letter-spacing: 0.03em;
+  }
+  .cs-kpis {
+    display: flex;
+    gap: 40px;
+  }
+  .cs-kpi {
+    text-align: right;
+  }
+  .cs-kpi-val {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .cs-kpi-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+  .cs-chart-wrap {
+    margin-left: 120px;
+  }
+  .cs-chart-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 24px;
+  }
+  /* Bar chart */
+  .cs-bars { display: flex; flex-direction: column; gap: 20px; }
+  .cs-bar-group { display: grid; grid-template-columns: 60px 1fr 1fr; gap: 8px; align-items: center; }
+  .cs-bar-label { font-size: 11px; color: var(--gray); letter-spacing: 0.1em; }
+  .cs-bar-track { height: 8px; background: #111; overflow: hidden; }
+  .cs-bar {
+    height: 100%;
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .cs-bar.animated { width: var(--w); }
+  .cs-bar-spend { background: #333; }
+  .cs-bar-rev { background: var(--white); }
+  .cs-bar-track { position: relative; }
+  .cs-bar-track::after {
+    content: attr(data-val);
+    position: absolute;
+    right: -48px;
+    top: -4px;
+    font-size: 10px;
+    color: var(--gray);
+  }
+  .cs-legend { display: flex; gap: 24px; margin-top: 16px; }
+  .cs-leg-item { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+  .cs-leg-item::before { content: ''; width: 20px; height: 2px; }
+  .cs-leg-spend::before { background: #333; }
+  .cs-leg-rev::before { background: var(--white); }
+  /* Dot bars */
+  .cs-dot-bars { display: flex; flex-direction: column; gap: 16px; }
+  .cs-dot-row { display: grid; grid-template-columns: 48px 1fr 80px; gap: 16px; align-items: center; }
+  .cs-dot-label { font-size: 11px; color: var(--gray); }
+  .cs-dot-track { height: 2px; background: #111; overflow: hidden; }
+  .cs-dot-fill { height: 100%; width: 0; background: var(--white); transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+  .cs-dot-fill.animated { width: var(--w); }
+  .cs-dot-val { font-size: 12px; font-weight: 600; text-align: right; }
+  /* Ratio bar */
+  .cs-ratio-bar { display: flex; height: 40px; overflow: hidden; gap: 2px; }
+  .cs-ratio-spend {
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    text-transform: uppercase;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .cs-ratio-rev {
+    background: var(--white);
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .cs-ratio-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 0.08em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .cs-header { grid-template-columns: 1fr; gap: 16px; }
+    .cs-kpis { justify-content: flex-start; }
+    .cs-kpi { text-align: left; }
+    .cs-chart-wrap { margin-left: 0; }
+    nav { padding: 24px; }
+    .hero { padding: 0 24px 64px; }
+    .hero-counter { display: none; }
+    .results { padding: 80px 24px; }
+    .results-grid { grid-template-columns: 1fr; }
+    .result-card { border-right: none; }
+    .services { padding: 80px 24px; }
+    .services-layout { grid-template-columns: 1fr; gap: 40px; }
+    .proof { padding: 80px 24px; }
+    .proof-numbers { grid-template-columns: repeat(2, 1fr); }
+    .proof-item:nth-child(2) { border-right: none; }
+    .proof-item:nth-child(3) { border-right: 1px solid #1a1a1a; }
+    .cta-section { padding: 100px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; gap: 24px; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Cherry</a>
+  <a href="https://calendly.com/cherryagencyofficial/30min" target="_blank" class="nav-cta">Book a Call</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Meta Ads · Email · SMS · DTC Growth</div>
+  <h1 class="hero-headline">The cherry<br><em>on top of</em><br>your brand.</h1>
+  <p class="hero-sub">We scale DTC brands with performance marketing that actually performs. No retainers for mediocre results.</p>
+  <div class="hero-line"></div>
+
+  <div class="hero-counter">
+    <div class="hero-stat">
+      <div class="hero-stat-number">$90K+</div>
+      <div class="hero-stat-label">Generated Across Brands</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">Up to 13×</div>
+      <div class="hero-stat-label">ROAS Achieved</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">DTC</div>
+      <div class="hero-stat-label">Ecommerce Brands</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Meta Ads</div>
+    <div class="marquee-item">Email Marketing</div>
+    <div class="marquee-item">SMS Marketing</div>
+    <div class="marquee-item">DTC Scaling</div>
+    <div class="marquee-item">ROAS Optimization</div>
+    <div class="marquee-item">Ecommerce Growth</div>
+    <div class="marquee-item">Retargeting</div>
+    <div class="marquee-item">Revenue Generation</div>
+    <div class="marquee-item">Meta Ads</div>
+    <div class="marquee-item">Email Marketing</div>
+    <div class="marquee-item">SMS Marketing</div>
+    <div class="marquee-item">DTC Scaling</div>
+    <div class="marquee-item">ROAS Optimization</div>
+    <div class="marquee-item">Ecommerce Growth</div>
+    <div class="marquee-item">Retargeting</div>
+    <div class="marquee-item">Revenue Generation</div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<section class="results">
+  <div class="section-label">Case Studies</div>
+  <div class="cs-intro reveal">$90K+ generated across brands.</div>
+
+  <!-- CASE STUDY 1 -->
+  <div class="cs-block reveal">
+    <div class="cs-header">
+      <div class="cs-number">01</div>
+      <div class="cs-meta">
+        <div class="cs-title">3-Month Campaign Management</div>
+        <div class="cs-subtitle">ROAS improved. Revenue scaled.</div>
+      </div>
+      <div class="cs-kpis">
+        <div class="cs-kpi">
+          <div class="cs-kpi-val">$42,424</div>
+          <div class="cs-kpi-label">Revenue</div>
+        </div>
+        <div class="cs-kpi">
+          <div class="cs-kpi-val">5.70×</div>
+          <div class="cs-kpi-label">ROAS</div>
+        </div>
+        <div class="cs-kpi">
+          <div class="cs-kpi-val">$7,441</div>
+          <div class="cs-kpi-label">Ad Spend</div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-chart-wrap">
+      <div class="cs-chart-label">Revenue vs Ad Spend — Before & After</div>
+      <div class="cs-bars">
+        <div class="cs-bar-group">
+          <div class="cs-bar-label">Before</div>
+          <div class="cs-bar-track">
+            <div class="cs-bar cs-bar-spend" style="--w: 28%" data-val="$2,072"></div>
+          </div>
+          <div class="cs-bar-track">
+            <div class="cs-bar cs-bar-rev" style="--w: 11%" data-val="$4,537"></div>
+          </div>
+        </div>
+        <div class="cs-bar-group">
+          <div class="cs-bar-label">After</div>
+          <div class="cs-bar-track">
+            <div class="cs-bar cs-bar-spend" style="--w: 100%" data-val="$7,441"></div>
+          </div>
+          <div class="cs-bar-track">
+            <div class="cs-bar cs-bar-rev" style="--w: 100%" data-val="$42,424"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cs-legend">
+        <span class="cs-leg-item cs-leg-spend">Ad Spend</span>
+        <span class="cs-leg-item cs-leg-rev">Revenue</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE STUDY 2 -->
+  <div class="cs-block reveal">
+    <div class="cs-header">
+      <div class="cs-number">02</div>
+      <div class="cs-meta">
+        <div class="cs-title">Multi-Campaign Scaling</div>
+        <div class="cs-subtitle">7 ads. Consistent returns across the board.</div>
+      </div>
+      <div class="cs-kpis">
+        <div class="cs-kpi">
+          <div class="cs-kpi-val">$17,840</div>
+          <div class="cs-kpi-label">Revenue</div>
+        </div>
+        <div class="cs-kpi">
+          <div class="cs-kpi-val">6.52×</div>
+          <div class="cs-kpi-label">ROAS</div>
+        </div>
+        <div class="cs-kpi">
+          <div class="cs-kpi-val">$2,736</div>
+          <div class="cs-kpi-label">Ad Spend</div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-chart-wrap">
+      <div class="cs-chart-label">Revenue per Ad — 7 Active Ads</div>
+      <div class="cs-dot-bars">
+        <div class="cs-dot-row">
+          <div class="cs-dot-label">Ad 1</div>
+          <div class="cs-dot-track"><div class="cs-dot-fill" style="--w: 27%"></div></div>
+          <div class="cs-dot-val">$4,738</div>
+        </div>
+        <div class="cs-dot-row">
+          <div class="cs-dot-label">Ad 2</div>
+          <div class="cs-dot-track"><div class="cs-dot-fill" style="--w: 100%"></div></div>
+          <div class="cs-dot-val">$10,152</div>
+        </div>
+        <div class="cs-dot-row">
+          <div class="cs-dot-label">Ad 3</div>
+          <div class="cs-dot-track"><div class="cs-dot-fill" style="--w: 17%"></div></div>
+          <div class="cs-dot-val">$2,950</div>
+        </div>
+        <div class="cs-dot-row">
+          <div class="cs-dot-label">Ad 4–7</div>
+          <div class="cs-dot-track"><div class="cs-dot-fill" style="--w: 3%"></div></div>
+          <div class="cs-dot-val">Testing</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE STUDY 3 -->
+  <div class="cs-block reveal">
+    <div class="cs-header">
+      <div class="cs-number">03</div>
+      <div class="cs-meta">
+        <div class="cs-title">Under One Month</div>
+        <div class="cs-subtitle">$1,299 in spend. $17,832 in revenue.</div>
+      </div>
+      <div class="cs-kpis">
+        <div class="cs-kpi">
+          <div class="cs-kpi-val">$17,832</div>
+          <div class="cs-kpi-label">Revenue</div>
+        </div>
+        <div class="cs-kpi">
+          <div class="cs-kpi-val">13.72×</div>
+          <div class="cs-kpi-label">ROAS</div>
+        </div>
+        <div class="cs-kpi">
+          <div class="cs-kpi-val">$1,299</div>
+          <div class="cs-kpi-label">Ad Spend</div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-chart-wrap">
+      <div class="cs-chart-label">Spend vs Revenue Breakdown</div>
+      <div class="cs-ratio-wrap">
+        <div class="cs-ratio-bar">
+          <div class="cs-ratio-spend" style="width: 6.8%">
+            <span>Spend</span>
+          </div>
+          <div class="cs-ratio-rev" style="width: 93.2%">
+            <span>$17,832 Revenue</span>
+          </div>
+        </div>
+        <div class="cs-ratio-labels">
+          <span>$1,299 spent</span>
+          <span>13.72× return</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="section-label">What We Do</div>
+  <div class="services-layout">
+    <div class="services-headline reveal">
+      Full-stack performance<br><em>marketing for</em><br>DTC brands.
+    </div>
+    <div class="services-list reveal">
+      <div class="service-item">
+        <span class="service-name">Meta Ads</span>
+      </div>
+      <div class="service-item">
+        <span class="service-name">Email Marketing</span>
+      </div>
+      <div class="service-item">
+        <span class="service-name">SMS Marketing</span>
+      </div>
+      <div class="service-item">
+        <span class="service-name">Campaign Strategy</span>
+      </div>
+      <div class="service-item">
+        <span class="service-name">ROAS Optimization</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF NUMBERS -->
+<section class="proof">
+  <div class="section-label">By The Numbers</div>
+  <div class="proof-numbers reveal">
+    <div class="proof-item">
+      <div class="proof-number">$90K+</div>
+      <div class="proof-label">Generated Across Brands</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-number">Up to 13×</div>
+      <div class="proof-label">ROAS on a Single Campaign</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-number">DTC</div>
+      <div class="proof-label">Ecommerce Focus</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-number">100%</div>
+      <div class="proof-label">Retainer Based</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg-text">CHERRY</div>
+  <div class="cta-eyebrow">Ready to scale?</div>
+  <h2 class="cta-headline">Let's talk<br>about your brand.</h2>
+  <a href="https://calendly.com/cherryagencyofficial/30min" target="_blank" class="cta-btn">
+    <span>Book a Strategy Call</span>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Cherry</div>
+  <div class="footer-links">
+    <a href="https://instagram.com/cherryagencyofficial" target="_blank" class="footer-link">Instagram</a>
+    <a href="https://calendly.com/cherryagencyofficial/30min" target="_blank" class="footer-link">Book a Call</a>
+  </div>
+  <div class="footer-copy">© 2026 Cherry Agency</div>
+</footer>
+
+<script>
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+          // Animate bars inside this element
+          entry.target.querySelectorAll('.cs-bar, .cs-dot-fill').forEach((bar, j) => {
+            setTimeout(() => bar.classList.add('animated'), j * 100);
+          });
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
